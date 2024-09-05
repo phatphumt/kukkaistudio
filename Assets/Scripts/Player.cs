@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
             StartCoroutine(nameof(StartCooldown));
             GameObject bullet = Instantiate(bulletObject, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             bullet.GetComponent<Fly>().bulletPoint = bulletSpawnPoint;
+            bullet.GetComponent<Fly>().bulletEvent.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().IncrementScore);
+            bullet.GetComponent<Fly>().bulletEvent.AddListener(GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>().UpdateScoreText);
+            Debug.Log(GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>());
         }
     }
 
