@@ -1,13 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-public class Fly : MonoBehaviour
+
+public class BulletController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed;
 
     public Transform bulletPoint;
-    public UnityEvent bulletEvent;
     private Vector3 blp;
     private bool isOnCooldown;
 
@@ -38,9 +38,8 @@ public class Fly : MonoBehaviour
         Debug.Log(collision.name);
         if (collision.CompareTag("Enemy"))
         {
-            bulletEvent.Invoke();
-            Destroy(collision.gameObject);
             Destroy(gameObject);
+            collision.GetComponent<Enemy>().hp -= 10;
         }
     }
 }

@@ -14,6 +14,6 @@ public class UIController : MonoBehaviour
 
     public void UpdateScoreText()
     {
-        scoreText.text = $"Score: {gameController.score}";
+        scoreText.text = gameController.score.ToString().PadLeft(3, '0');
     }
 }

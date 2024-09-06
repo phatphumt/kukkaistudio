@@ -7,15 +7,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject bulletObject;
     [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] GameController gameController;
 
     private bool isOnCooldown = false;
     private Vector2 vt;
-    public int hp { 
-        get { return hp; }
-        set { 
-            hp = value; 
-        }
-    }
 
     // Update is called once per frame
     private void Update()
@@ -25,10 +20,8 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(nameof(StartCooldown));
             GameObject bullet = Instantiate(bulletObject, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-            bullet.GetComponent<Fly>().bulletPoint = bulletSpawnPoint;
-            bullet.GetComponent<Fly>().bulletEvent.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().IncrementScore);
-            bullet.GetComponent<Fly>().bulletEvent.AddListener(GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>().UpdateScoreText);
-            Debug.Log(GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>());
+            bullet.GetComponent<BulletController>().bulletPoint = bulletSpawnPoint;
+            Debug.Log(gameController.GetComponent<UIController>());
         }
     }
 
@@ -43,4 +36,4 @@ public class Player : MonoBehaviour
     {
         rb.velocity = vt * 10;
     }
-}
+}   

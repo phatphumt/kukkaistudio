@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] GameObject player;
+    [SerializeField] ProgessBar progessBarHP;
     public int score { get; private set; } = 0;
     public int hp { get; private set; } = 100;
 
@@ -15,5 +17,6 @@ public class GameController : MonoBehaviour
     public void UpdateHP(int newHP)
     {
         hp += newHP;
+        progessBarHP.UpdateHPBar(hp);
     }
 }
