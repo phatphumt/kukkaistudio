@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,27 +7,28 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject bulletObject;
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] GameController gameController;
+    [SerializeField] AudioClip shootingSound;
+    [SerializeField] AudioSource audioSource;
 
     private bool isOnCooldown = false;
     private Vector2 vt;
 
-    // Update is called once per frame
     private void Update()
     {
         vt = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         if (Input.GetMouseButton(0) && !isOnCooldown)
         {
             StartCoroutine(nameof(StartCooldown));
+            audioSource.PlayOneShot(shootingSound);
             GameObject bullet = Instantiate(bulletObject, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             bullet.GetComponent<BulletController>().bulletPoint = bulletSpawnPoint;
-            Debug.Log(gameController.GetComponent<UIController>());
         }
     }
 
     private IEnumerator StartCooldown()
     {
         isOnCooldown = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(.2f);
         isOnCooldown = false;
     }
 
@@ -36,4 +36,4 @@ public class Player : MonoBehaviour
     {
         rb.velocity = vt * 10;
     }
-}   
+}

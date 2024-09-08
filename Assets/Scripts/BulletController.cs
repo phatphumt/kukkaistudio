@@ -11,7 +11,7 @@ public class BulletController : MonoBehaviour
     private Vector3 blp;
     private bool isOnCooldown;
 
-    void Start() 
+    void Start()
     {
         blp = bulletPoint.up;
     }
@@ -21,7 +21,7 @@ public class BulletController : MonoBehaviour
         if (!isOnCooldown)
         {
             StartCoroutine(nameof(StartCooldown));
-            rb.AddForce(blp.normalized * speed, ForceMode2D.Impulse);
+            rb.AddForce(blp.normalized * -speed, ForceMode2D.Impulse);
         }
     }
 
@@ -35,7 +35,6 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
         if (collision.CompareTag("Enemy"))
         {
             Destroy(gameObject);
